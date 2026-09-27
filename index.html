@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TRACER — Hierarchical Decomposition of Terrain Adaptation</title>
+  <meta name="description" content="TRACER separates objective, interaction, strategy, and execution roles for terrain-adaptive quadrupedal locomotion." />
+  <link rel="canonical" href="https://droneslab.github.io/tracer/" />
+  <meta property="og:title" content="TRACER — Hierarchical Decomposition of Terrain Adaptation" />
+  <meta property="og:description" content="From hierarchical decomposition to role-specialized adaptation for quadrupedal locomotion." />
+  <meta property="og:url" content="https://droneslab.github.io/tracer/" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="static/css/style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <div class="eyebrow">DRONES Lab · University at Buffalo</div>
+      <h1>TRACER: Hierarchical Decomposition of Terrain Adaptation for Quadrupedal Locomotion</h1>
+      <p class="subtitle">From hierarchical decomposition to role-specialized adaptation.</p>
+      <div class="authors"><strong>Ji-Hyeon Yoo</strong> · Kartikeya Singh · Karthik Dantu</div>
+      <div class="affiliation">Distributed Robotics and Networked Embedded Systems Lab, University at Buffalo</div>
+      <div class="actions">
+        <a class="btn" href="static/pdfs/tracer_iros26_workshop.pdf">Workshop Paper</a>
+        <a class="btn" href="static/pdfs/tracer_poster_2026.pdf">Poster</a>
+        <a class="btn secondary" href="#current-work">Current Work</a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav" aria-label="Project sections">
+    <div class="container">
+      <a href="#motivation">Motivation</a>
+      <a href="#hierarchy">Hierarchy</a>
+      <a href="#findings">Findings</a>
+      <a href="#current-work">Current Work</a>
+      <a href="#resources">Resources</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section" id="motivation">
+      <div class="container">
+        <h2>Why decompose terrain adaptation?</h2>
+        <p class="lead">The same locomotion task can fail for different reasons across terrain. TRACER asks a structural question: <strong>which component should adapt to a given terrain-induced failure?</strong></p>
+
+        <div class="cards">
+          <article class="card">
+            <h3>Multiple failure sources</h3>
+            <p>Failures can emerge from objective selection, robot–terrain interaction, strategy authority, or low-level execution.</p>
+          </article>
+          <article class="card">
+            <h3>Adaptation occurs at multiple levels</h3>
+            <p>Existing approaches adapt different parts of the stack, but the roles and interfaces between them are often coupled.</p>
+          </article>
+          <article class="card">
+            <h3>Reward semantics are not physical semantics</h3>
+            <p>Increasing a reward weight does not guarantee improvement in the physical quantity carrying the same label.</p>
+          </article>
+        </div>
+
+        <div class="flow" aria-label="Preference to outcome flow">
+          <div class="flowbox"><span class="symbol">η</span><strong>Desired physical preference</strong></div>
+          <div class="arrow">→</div>
+          <div class="flowbox"><span class="symbol">β</span><strong>Internal reward conditioning</strong></div>
+          <div class="arrow">→</div>
+          <div class="flowbox"><span class="symbol">Θ</span><strong>Locomotion strategy</strong></div>
+          <div class="arrow">→</div>
+          <div class="flowbox"><span class="symbol">J</span><strong>Observed physical outcome</strong></div>
+        </div>
+
+        <p class="thesis">TRACER makes these interfaces explicit so that a mismatch can be localized rather than hidden inside a single adaptation mechanism.</p>
+      </div>
+    </section>
+
+    <section class="section alt" id="hierarchy">
+      <div class="container">
+        <h2>TRACER functional hierarchy</h2>
+        <p class="lead">TRACER separates heterogeneous-terrain adaptation into four functional roles: Objective and Interaction provide upstream information, Strategy produces interpretable locomotion references, and Execution physically realizes the requested motion.</p>
+
+        <figure class="figure hierarchy-figure">
+          <a href="static/images/tracer_hierarchy_full.png"
+             target="_blank"
+             rel="noopener"
+             class="zoomable-figure"
+             title="Open full-resolution figure">
+            <img src="static/images/tracer_hierarchy_full.png"
+                 alt="TRACER hierarchical architecture and module mappings" />
+          </a>
+        </figure>
+        <p class="caption">Core hierarchy used to diagnose where task preference, interaction information, high-level strategy, and low-level physical realization enter the locomotion stack.</p>
+
+        <div class="legend-grid">
+          <div class="legend-item"><strong>Objective</strong>What should be prioritized? Maps task, preference, and context into internal conditioning.</div>
+          <div class="legend-item"><strong>Interaction</strong>What dynamics are being experienced? Summarizes recent command–response history.</div>
+          <div class="legend-item"><strong>Strategy</strong>How should the robot move? Produces interpretable high-level references such as velocity and body height.</div>
+          <div class="legend-item"><strong>Execution</strong>How is the request physically realized? Tracks the strategy under dynamics and contact constraints.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="findings">
+      <div class="container">
+        <h2>Preference-conditioned physical outcomes</h2>
+        <p class="lead">Changing task preference shifts the robot toward distinct physical operating points. The shifts are meaningful, but they are not perfectly axis-aligned.</p>
+
+        <div class="result-grid">
+          <div class="metric">
+            <div class="label">Motion-biased</div>
+            <div class="value">+1.45%</div>
+            <div>forward progress</div>
+            <small>20 / 20 paired initial conditions favorable</small>
+          </div>
+          <div class="metric">
+            <div class="label">Stability-biased</div>
+            <div class="value">−28.5%</div>
+            <div>slip</div>
+            <small>20 / 20 paired initial conditions favorable</small>
+          </div>
+          <div class="metric">
+            <div class="label">Energy-biased</div>
+            <div class="value">−2.99%</div>
+            <div>energy cost J<sub>E</sub></div>
+            <small>19 / 20 paired initial conditions favorable</small>
+          </div>
+        </div>
+
+        <figure class="figure">
+          <img src="static/images/preference_sweep.png" alt="Task-preference sweep showing forward progress, slip, energy cost, and structural commits" />
+        </figure>
+        <p class="caption">Controlled preference sweep on the same nominal plant with 20 paired initial conditions. Only task preference η changes.</p>
+
+        <div class="callout"><strong>Important:</strong> Energy-biased preference lowers J<sub>E</sub> relative to Balanced, but does not globally minimize it. This is one example of why reward semantics and physical semantics should not be treated as interchangeable.</div>
+
+        <h3 style="margin-top:34px">What the initial study tells us</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Observation</th><th>Interpretation</th></tr></thead>
+            <tbody>
+              <tr><td>Objective conditioning changes Strategy</td><td>Internal conditioning is behaviorally meaningful.</td></tr>
+              <tr><td>Physical effects remain coupled</td><td>Reward semantics ≠ physical semantics.</td></tr>
+              <tr><td>Stability is harder to isolate</td><td>The Strategy interface needs richer contact / gait authority.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="current-work">
+      <div class="container">
+        <h2>Current work: role-specialized adaptation</h2>
+        <p class="lead">The interface diagnosis motivates a more explicit separation of continuous task semantics from interaction-driven structural adaptation.</p>
+
+        <div class="current-grid">
+          <div class="lane">
+            <h3>Task / semantic path</h3>
+            <div class="codeflow">η → Preference Calibration → β
+η, β → Meta-Action Generator → Θᶜ</div>
+            <p>Task preference is retained as explicit semantic information while calibrated objective conditioning provides an internal coordinate.</p>
+          </div>
+          <div class="lane">
+            <h3>Interaction / structural path</h3>
+            <div class="codeflow">H → Response Adaptation → (ρ, σ)
+(ρ, σ) → Gait Parameter Generator → D_req</div>
+            <p>Interaction history is routed to a structural gait channel, separating hidden physical mismatch from task intent.</p>
+          </div>
+        </div>
+
+        <div class="flow">
+          <div class="flowbox"><strong>Observed limitation</strong><br/>Physical preference ≠ reward semantics</div>
+          <div class="arrow">→</div>
+          <div class="flowbox"><strong>Extension</strong><br/>Preference calibration</div>
+          <div class="flowbox"><strong>Observed limitation</strong><br/>Interaction not explicit</div>
+          <div class="arrow">→</div>
+          <div class="flowbox"><strong>Extension</strong><br/>Interaction adaptation</div>
+          <div class="flowbox"><strong>Observed limitation</strong><br/>Limited Strategy authority</div>
+          <div class="arrow">→</div>
+          <div class="flowbox"><strong>Extension</strong><br/>Structural gait authority</div>
+        </div>
+
+        <p class="caption">Items in this section extend beyond the initial workshop study and summarize the current TRACER direction.</p>
+      </div>
+    </section>
+
+    <section class="section" id="resources">
+      <div class="container">
+        <h2>Resources</h2>
+        <p class="lead">Project materials for TRACER. This page will be updated with additional videos, code, and future publications.</p>
+        <div class="resources">
+          <a class="resource" href="static/pdfs/tracer_iros26_workshop.pdf">Workshop paper (PDF)</a>
+          <a class="resource" href="static/pdfs/tracer_poster_2026.pdf">NERC / IROS poster (PDF)</a>
+          <span class="resource">Code — coming soon</span>
+          <span class="resource">Videos — coming soon</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      TRACER · DRONES Lab · University at Buffalo
+    </div>
+  </footer>
+</body>
+</html>

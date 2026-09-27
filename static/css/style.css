@@ -1,0 +1,196 @@
+
+:root{
+  --ub-blue:#005bbb;
+  --ub-blue-dark:#003b7a;
+  --ink:#172033;
+  --muted:#5e6778;
+  --line:#dce4ef;
+  --soft:#f5f8fc;
+  --white:#ffffff;
+  --green:#1f9d75;
+  --orange:#dc7b16;
+  --purple:#6f42c1;
+  --shadow:0 18px 45px rgba(20,50,90,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color:var(--ink);
+  background:#fff;
+  line-height:1.65;
+}
+a{color:var(--ub-blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{width:min(1120px, calc(100% - 40px));margin:0 auto}
+.hero{
+  color:white;
+  background:
+    radial-gradient(circle at 82% 22%, rgba(255,255,255,.14), transparent 28%),
+    linear-gradient(135deg,var(--ub-blue-dark),var(--ub-blue));
+  padding:72px 0 58px;
+}
+.eyebrow{
+  text-transform:uppercase;letter-spacing:.11em;font-size:.78rem;font-weight:800;opacity:.8;margin-bottom:12px
+}
+h1{
+  font-size:clamp(2.25rem,5vw,4.55rem);
+  line-height:1.04;
+  letter-spacing:-.045em;
+  max-width:1000px;
+  margin:0 0 18px;
+}
+.subtitle{
+  font-size:clamp(1.05rem,2.2vw,1.45rem);
+  max-width:900px;
+  opacity:.92;
+  margin:0 0 20px;
+}
+.authors{font-size:1.04rem;margin-top:12px}
+.affiliation{opacity:.82;margin-top:4px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 16px;border-radius:999px;
+  background:white;color:var(--ub-blue-dark);font-weight:750;
+  border:1px solid rgba(255,255,255,.3);
+}
+.btn.secondary{background:transparent;color:white}
+.btn:hover{text-decoration:none;transform:translateY(-1px)}
+.nav{
+  position:sticky;top:0;z-index:5;background:rgba(255,255,255,.94);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)
+}
+.nav .container{display:flex;gap:24px;overflow:auto;padding:12px 0;font-size:.92rem;font-weight:700;white-space:nowrap}
+.section{padding:70px 0}
+.section.alt{background:var(--soft)}
+.section h2{
+  font-size:clamp(1.7rem,3vw,2.55rem);
+  letter-spacing:-.035em;margin:0 0 14px;
+}
+.lead{font-size:1.15rem;color:var(--muted);max-width:860px;margin-bottom:34px}
+.thesis{
+  font-size:clamp(1.35rem,3vw,2.15rem);
+  line-height:1.35;font-weight:750;
+  border-left:5px solid var(--ub-blue);padding:18px 24px;background:#f7fbff;border-radius:10px
+}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+.card{
+  border:1px solid var(--line);border-radius:16px;padding:24px;background:#fff;box-shadow:0 8px 24px rgba(20,50,90,.05)
+}
+.card h3{margin:0 0 10px;font-size:1.08rem}
+.card p{margin:0;color:var(--muted)}
+.flow{
+  display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;
+  margin:36px 0 14px
+}
+.flowbox{
+  min-width:170px;padding:20px 18px;border-radius:16px;text-align:center;
+  border:1px solid var(--line);background:white;box-shadow:0 8px 24px rgba(20,50,90,.05)
+}
+.flowbox .symbol{font-family:Georgia,serif;font-style:italic;font-size:2rem;color:var(--ub-blue);display:block}
+.arrow{font-size:1.65rem;color:#6d87a5;font-weight:900}
+.figure{
+  border:1px solid var(--line);border-radius:18px;background:white;overflow:hidden;box-shadow:var(--shadow)
+}
+.figure img{display:block;width:100%;height:auto}
+.caption{font-size:.92rem;color:var(--muted);margin-top:12px}
+.legend-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px
+}
+.legend-item{padding:18px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.legend-item strong{display:block;color:var(--ub-blue);font-size:1.08rem;margin-bottom:4px}
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.metric{
+  border-top:5px solid var(--ub-blue);background:white;border-radius:14px;
+  padding:20px;border:1px solid var(--line);box-shadow:0 8px 24px rgba(20,50,90,.05)
+}
+.metric .label{font-size:.86rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:800}
+.metric .value{font-size:2.05rem;line-height:1.15;font-weight:850;margin:7px 0}
+.metric small{color:var(--muted)}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;background:#fff}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:#eef5fc;color:var(--ub-blue-dark)}
+tr:last-child td{border-bottom:none}
+.current-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}
+.lane{border:1px solid var(--line);border-radius:16px;padding:22px;background:#fff}
+.lane h3{margin:0 0 10px}
+.codeflow{
+  font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background:#0f1f33;color:#e8f1ff;border-radius:14px;padding:18px;overflow:auto;font-size:.92rem
+}
+.callout{
+  margin-top:24px;padding:18px 20px;border-radius:14px;background:#fff7e8;border:1px solid #f2d59f;color:#66450c
+}
+.resources{display:flex;flex-wrap:wrap;gap:12px}
+.resource{
+  display:inline-flex;align-items:center;padding:10px 14px;border:1px solid var(--line);
+  border-radius:12px;font-weight:700;background:#fff
+}
+footer{padding:36px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem}
+@media (max-width:850px){
+  .cards,.legend-grid,.result-grid,.current-grid{grid-template-columns:1fr}
+  .section{padding:52px 0}
+  .hero{padding-top:56px}
+  .container{width:min(100% - 28px,1120px)}
+}
+
+
+
+
+/* --- TRACER hierarchy figure --- */
+.hierarchy-figure {
+  overflow: hidden;
+}
+.hierarchy-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+}
+.zoomable-figure {
+  display: block;
+  cursor: zoom-in;
+}
+.zoomable-figure:hover img {
+  opacity: .97;
+}
+
+/* --- Physical-outcome result grid --- */
+/* Desktop / tablet: two columns. Third panel is centered below. */
+.plot-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 28px;
+  align-items: start;
+}
+.plot-grid .figure {
+  margin: 0;
+  min-width: 0;
+}
+.plot-grid .figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.plot-grid .span-2 {
+  grid-column: 1 / -1;
+  width: min(760px, 100%);
+  justify-self: center;
+}
+
+/* Only phones collapse to one column. */
+@media (max-width: 600px) {
+  .plot-grid {
+    grid-template-columns: 1fr;
+  }
+  .plot-grid .span-2 {
+    grid-column: auto;
+    width: 100%;
+  }
+}
